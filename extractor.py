@@ -29,15 +29,21 @@ You are Qwen, created by Alibaba Cloud. You are a helpful assistant. You are spe
 ```
 """
 
-def use_ai(html: str) -> None:
-    response = ollama.chat(
-        model="qwen2.5:14b-instruct-q6_K",
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": f"Extract and convert this HTML to Markdown:\n\n{html}"}
-            # {"role": "user", "content": f"What is your goal?"}
-        ],
-        options={"num_ctx": 32000, "tempreture": 0.9, "top_p": 0.7}
-    )
+CLIENT = ollama.Client(
+    host="http://172.26.165.148:11434"
+)
 
-    print(response['message']['content'])
+def use_ai(html: str) -> None:
+    try:
+        response = CLIENT.chat(
+            model="qwen2.5:14b-instruct-q6_K",
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": f"Extract and convert this HTML to Markdown:\n\n{html}"}
+                # {"role": "user", "content": f"What is your goal?"}
+            ],
+            options={"num_ctx": 32000, "tempreture": 0.9, "top_p": 0.7}
+        )
+        print(response['message']['content'])
+    except Exception as e:
+        print(e)

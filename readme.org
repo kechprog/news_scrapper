@@ -1,6 +1,0 @@
-* TODO
-- Attr tags(*html_cleaner.py*)
-- Llama prompt experimentation
-- Llama fintetuning
-- Rss feed support
-- Acquisition of historical data
